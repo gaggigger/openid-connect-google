@@ -1,0 +1,22 @@
+{
+  "name" : "passport-google-oauth-examples-oauth2",
+  "version" : "0.0.0",
+  "author" : "Uma Reddy",
+  "license": "MIT",
+  "dependencies" : {
+    "express" : "^4.8.0",
+    "express-session" : "^1.7.2",
+    "ejs" : ">= 0.0.0",
+    "fs" : ">= 0.0.0",
+    "passport" : ">= 0.0.0",
+    "passport-google-oauth" : ">= 0.0.0",
+    "cookie-parser" : ">= 0.0.0",
+    "body-parser" : "^1.5.2",
+    "query-string" : ">= 0.0.0",
+    "morgan": "^1.2.2",
+    "method-override": "^2.1.2",
+    "rsa-pem-from-mod-exp" : ">=0.0.0",
+    "request" : ">=0.0.0",
+    "jsonwebtoken" : ">=0.0.0"
+  }
+}

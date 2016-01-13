@@ -1,0 +1,4 @@
+sudo pkill -9 -U root -f 'node osqclient/iclient.js'
+sudo pkill -9  -U root -f 'node apiserver/app.js'
+sudo pkill -9  -U root -f 'node webapp/server.js'
+sudo pkill -9  -U root -f 'node webapp/login.js'

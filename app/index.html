@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- CSS (load bootstrap) -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+        .navbar { border-radius:0; }
+    </style>
+
+    <!-- JS (load angular, ui-router, and our custom js file) -->
+    <script src="https://code.angularjs.org/1.4.7/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+    <script src="angularapp.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.0.3/ui-bootstrap-tpls.min.js">
+    </script>-->
+    <script src="ui-bootstrap-tpls-0.14.3.js"></script> 
+</head>
+
+<!-- apply our angular app to our site -->
+<body ng-app="sampleApp" ng-controller="sampleCtrl" ng-init="getUsers()">
+<div class="page-header">
+  <div class="container">
+    <div class="navbar-header">
+      <ul class="nav navbar-nav">
+
+        <li> 
+          <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
+          <span style="padding-left:20px;"></span>
+        </li>
+        <li>
+          Sample Inc.
+          <span style="padding-left:200px;"></span>
+        </li>
+        <!-- <span style="padding-left:80px;"></span> -->
+
+        <li>
+        <div class="btn-group" uib-dropdown>
+          <button id="split-button" type="button" class="btn btn-default">Select User</button>
+          <button type="button" class="btn btn-danger" uib-dropdown-toggle>
+            <span class="caret"></span>
+            <span class="sr-only">Split button!</span>
+          </button>
+          
+          <ul class="uib-dropdown-menu" role="menu" aria-labelledby="split-button">
+            <li ng-repeat="choice in list">
+            <a ui-sref="home.sidebar({userId:'{{choice.id}}'})">{{choice.name}}</a>
+            </li>
+          </ul>
+        </div>
+        </li>
+
+        <li>
+            <div container>
+              <div ui-view="activeUser" class="navbar-text pull-right"></div>
+            </div>
+        </li>
+      </ul>
+    </div>
+  </div> 
+</div>
+
+<div class="container">
+    <div ui-view="home"></div>
+</div>
+<hr>
+    <pre>
+      <strong>Select a name from the dropdown and use the sidebar to browse details of user</strong>
+      &copy; 2016
+    </pre>
+</body>
+</html>

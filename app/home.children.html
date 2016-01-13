@@ -1,0 +1,22 @@
+<div class="col-md-10">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <!-- <div ui-view="hometitle"></div> -->
+            <p><strong>{{userName}}</strong></p>
+        </div>
+          
+        <div class="panel-body">
+            <div>
+                <h4>
+                <li ng-repeat="choice in children">
+                    <p>{{choice.name}} -- {{choice.gender}} -- {{choice.age}} -- Years Old
+                </li>
+                </h4>
+            </div>
+        </div>
+        <div class="panel-footer">Sample Application
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,7 @@
+<% if (!user) { %>
+	<h2>Login of user failed please try again</h2>
+<% } else { %>
+	<h2>Hello, <%= user.displayName %> you are not authorized to use the Sample Inc application. Please ask your administrator to register your email address with Sample Inc application</h2>
+<% } %>
+
+<a href="/auth/google">Login with Google</a>

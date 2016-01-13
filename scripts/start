@@ -1,0 +1,4 @@
+#!/bin/bash
+node api/app.js >& apiserver.log &
+node app/server.js >& webapp.log &
+node auth/login.js >& login.log &

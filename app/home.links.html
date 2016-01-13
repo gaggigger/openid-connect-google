@@ -1,0 +1,24 @@
+<div class="col-md-2">
+    <div class="btn-group-vertical" role="group" aria-label="...">
+    
+        <button type="button" class="btn btn-default">
+            <a ui-sref="home.sidebar.overview({userId: '{{userId}}'})">Details</a>
+        </button>
+        <button type="button" class="btn btn-default">
+            <a ui-sref="home.sidebar.address({userId: '{{userId}}'})">Address</a>
+        </button>
+
+        <button ng-if="superperson" type="button" class="btn btn-default">
+            <a ui-sref="home.sidebar.employer({userId: '{{userId}}'})">Super Employer</a>
+        </button>
+
+        <button ng-if="normalperson" type="button" class="btn btn-default">
+            <a ui-sref="home.sidebar.employer({userId: '{{userId}}'})">Normal Employer</a>
+        </button>
+
+        <button type="button" class="btn btn-default">
+            <a ui-sref="home.sidebar.children({userId: '{{userId}}'})">Children</a>
+        </button>
+
+    </div>
+</div>
