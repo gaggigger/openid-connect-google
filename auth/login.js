@@ -11,11 +11,13 @@ var querystring     = require('query-string');
 
 var PASSPORT_LOCAL_TEST = true;
 
-// Set the following two values to match your client
-var GOOGLE_CLIENT_ID = "";
-var GOOGLE_CLIENT_SECRET = "";
+var valid_users = JSON.parse(fs.readFileSync('fixtures/users.json', 'utf8'));
+var cf = JSON.parse(fs.readFileSync('conf/google_client_config.json', 'utf8'));
+var cs = JSON.parse(fs.readFileSync('conf/google_client_secret.json', 'utf8'));
 
-var valid_users = JSON.parse(fs.readFileSync('users.json', 'utf8'));
+console.log("GOOGLE_CLIENT_ID     : " + cf.GOOGLE_CLIENT_ID);
+console.log("GOOGLE_CLIENT_SECRET : " + cs.GOOGLE_CLIENT_SECRET);
+console.log("CALLBACK_URL         : " + cf.CALLBACK_URL);
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -28,9 +30,9 @@ passport.deserializeUser(function(obj, done) {
 // Here we are providing a stategy and a callback function for verification
 // Set callback URL appropriately
 passport.use(new GoogleStrategy({
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:5001/callback",
+    clientID: cf.GOOGLE_CLIENT_ID,
+    clientSecret: cs.GOOGLE_CLIENT_SECRET,
+    callbackURL: cf.CALLBACK_URL,
     passReqToCallback : true
   },
   function(req, accessToken, refreshToken, params, profile, done) {
@@ -90,12 +92,12 @@ app.get('/auth/google',
 app.get('/callback', 
   passport.authenticate('google', { failureRedirect: '/relogin' }),
   function(req, res) {
-    var tParams = '';
-    if (PASSPORT_LOCAL_TEST) {
-      tParams = "http://localhost:5002/?Token="+req.session.authParams.id_token;
-    } else {
-      tParams = "/app/?Token="+req.session.authParams.id_token;
-    }
+    var tParams = cf.APP_ENDPOINT_WITH_TOKEN+req.session.authParams.id_token;
+    // if (PASSPORT_LOCAL_TEST) {
+    //   tParams = "http://localhost:5002/?Token="+req.session.authParams.id_token;
+    // } else {
+    //   tParams = "/app/?Token="+req.session.authParams.id_token;
+    // }
     console.log("/callback processes redirecting to : " + tParams);
     res.redirect(tParams);
   });

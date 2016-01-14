@@ -4,6 +4,7 @@ var morgan = require('morgan');
 var bodyParser   = require('body-parser');
 var querystring  = require('query-string');
 var verify = require('./api_verify_token');
+var fs   = require('fs');
 
 
 var client = '';
@@ -16,10 +17,10 @@ var googleKeys = {};
 var keyArray = {};
 
 // Set the following to match your client
-var GOOGLE_CLIENT_ID = "";
+var cf = JSON.parse(fs.readFileSync('conf/google_client_config.json', 'utf8'));
 
 var gOptions = {
-  "GOOGLE_OPENID_CONFIG_LINK" : "https://accounts.google.com/.well-known/openid-configuration"
+  "GOOGLE_OPENID_CONFIG_LINK" : cf.GOOGLE_OPENID_CONFIG_LINK
 };
 
 var usrArray =  [
@@ -112,7 +113,7 @@ app.use(function verifyUser(req, res, next) {
           res.sendStatus(403);
         } else {
           // Check if audience requested is same as the client Id
-          if (decoded.aud != GOOGLE_CLIENT_ID) {
+          if (decoded.aud != cf.GOOGLE_CLIENT_ID) {
             console.log("Invalid audience = " + decoded.aud);
             res.sendStatus(403);
           }
