@@ -102,3 +102,8 @@ Point your browser to
 
 
 To be secure, you could configure network firewall rules for your GCE instance to only accept incoming traffic from your public IP address. You can find this by tying my ipaddress at the google prompt. When you have finished testing the authentication module you could remove this restriction to allow any ip address to reach your service. The user will not be allowed to access your api service if the user is not authenticated
+
+#TO DO
+1. Make the keys retrieved from Google persistent
+2. Retrieve keys periodically from Google. Google seems to be changing keys every hour. On a key-not-found error retrieve keys and try to verify the JWT with the new keys before returning an authentication error.
+3. Keep old keys around for a day or so
