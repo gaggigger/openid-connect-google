@@ -1,6 +1,6 @@
 {
 	"GOOGLE_CLIENT_ID" : "",
 	"APP_ENDPOINT_WITH_TOKEN" : "/app/?Token=",
-	"CALLBACK_URL" : "http://www.my-openid-connect-cloud.com/callback",
+	"CALLBACK_URL" : "https://www.my-openid-connect-cloud.com/callback",
 	"GOOGLE_OPENID_CONFIG_LINK" : "https://accounts.google.com/.well-known/openid-configuration"
 }

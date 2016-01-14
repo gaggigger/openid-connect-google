@@ -15,10 +15,6 @@ var valid_users = JSON.parse(fs.readFileSync('fixtures/users.json', 'utf8'));
 var cf = JSON.parse(fs.readFileSync('conf/google_client_config.json', 'utf8'));
 var cs = JSON.parse(fs.readFileSync('conf/google_client_secret.json', 'utf8'));
 
-console.log("GOOGLE_CLIENT_ID     : " + cf.GOOGLE_CLIENT_ID);
-console.log("GOOGLE_CLIENT_SECRET : " + cs.GOOGLE_CLIENT_SECRET);
-console.log("CALLBACK_URL         : " + cf.CALLBACK_URL);
-
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
