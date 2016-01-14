@@ -1,0 +1,6 @@
+{
+	"GOOGLE_CLIENT_ID" : "",
+	"APP_ENDPOINT_WITH_TOKEN" : "http://localhost:5002/?Token=",
+	"CALLBACK_URL" : "http://localhost:5001/callback",
+	"GOOGLE_OPENID_CONFIG_LINK" : "https://accounts.google.com/.well-known/openid-configuration"
+}
