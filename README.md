@@ -32,6 +32,8 @@ You are now done with setting up the keys required to access the API server you 
 ###Local Mode:  
 In the local mode, the application can be run on your linux desktop/laptop or on a MacBook. There is no need to use the VM in the cloud. You still need an account on Google Compute Engine to configure API credentials and obtain client id and secret. Nginx installation and configuration is not necessary. The local setup looks like the following.
 
+![alt text](https://github.com/umareddy/openid-connect-google/blob/master/docs/local.png "Cloud Mode")
+
 Once the repository has been cloned, do the following for setting up local configuration:
 ``` 
 cp conf/google_client_config.json.local conf/google_client_config.json
@@ -50,6 +52,8 @@ Make sure PASSPORT_LOCAL_TEST is set to true
 
 ###Cloud Mode
 In the cloud mode the services are run behind a nginx webserver. Browser uses HTTPS to the nginx webserver. The cloud setup looks like the following.
+
+![alt text](https://github.com/umareddy/openid-connect-google/blob/master/docs/cloud.png "Cloud Mode")
 
 Once the repository has been cloned, do the following for setting up local configuration:
 ```
