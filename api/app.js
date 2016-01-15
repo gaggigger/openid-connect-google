@@ -20,7 +20,8 @@ var keyArray = {};
 var cf = JSON.parse(fs.readFileSync('conf/google_client_config.json', 'utf8'));
 
 var gOptions = {
-  "GOOGLE_OPENID_CONFIG_LINK" : cf.GOOGLE_OPENID_CONFIG_LINK
+  "GOOGLE_OPENID_CONFIG_LINK" : cf.GOOGLE_OPENID_CONFIG_LINK,
+  "GOOGLE_CLIENT_ID" : cf.GOOGLE_CLIENT_ID
 };
 
 var usrArray =  [
@@ -110,20 +111,17 @@ app.use(function verifyUser(req, res, next) {
     verify.verifyToken(req.query.Token, gOptions, googleEndpoints, keyArray, function (err, decoded) {
         if (err) {
           console.log({"Verification Error" : err});
-          res.sendStatus(403);
+          // res.sendStatus(403);
+          res.status(403).send(err);
         } else {
-          // Check if audience requested is same as the client Id
-          if (decoded.aud != cf.GOOGLE_CLIENT_ID) {
-            console.log("Invalid audience = " + decoded.aud);
-            res.sendStatus(403);
-          }
           req.userInfoFromToken = decoded;
           next();
         }
     });
   } else {
     console.log("Token not present - 403 Forbidden error");
-    res.sendStatus(403);
+    // res.sendStatus(403);
+    res.status(403).send('Access token missing - authentcation not possible');
   }
 });
 

@@ -9,8 +9,6 @@ var bodyParser      = require('body-parser');
 var session         = require('express-session');
 var querystring     = require('query-string');
 
-var PASSPORT_LOCAL_TEST = true;
-
 var valid_users = JSON.parse(fs.readFileSync('fixtures/users.json', 'utf8'));
 var cf = JSON.parse(fs.readFileSync('conf/google_client_config.json', 'utf8'));
 var cs = JSON.parse(fs.readFileSync('conf/google_client_secret.json', 'utf8'));
@@ -89,11 +87,6 @@ app.get('/callback',
   passport.authenticate('google', { failureRedirect: '/relogin' }),
   function(req, res) {
     var tParams = cf.APP_ENDPOINT_WITH_TOKEN+req.session.authParams.id_token;
-    // if (PASSPORT_LOCAL_TEST) {
-    //   tParams = "http://localhost:5002/?Token="+req.session.authParams.id_token;
-    // } else {
-    //   tParams = "/app/?Token="+req.session.authParams.id_token;
-    // }
     console.log("/callback processes redirecting to : " + tParams);
     res.redirect(tParams);
   });

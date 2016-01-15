@@ -104,6 +104,19 @@ exports.verifyToken = function verifyToken(token, goptions, gendpoints, gKeyArra
       verifyResult(err, null);
     } else {
       // console.log("Decode successful : ", decoded);
+      // Verify the Audience, iss and expiry time before invoking the callback
+      if (decoded.aud != goptions.GOOGLE_CLIENT_ID) {
+        err = 'Audience mismatch - id token authentication failure';
+        verifyResult(err, null);
+      }
+      if ((decoded.iss != 'accounts.google.com') && (decoded.iss != 'https://accounts.google.com')) {
+        err = 'ISS mismatch - id token authentication failure';
+        verifyResult(err, null);
+      }
+      if (Date.now() < decoded.exp) {
+        err = 'id token expired - authentication failure';
+        verifyResult(err, null);
+      }
       verifyResult(null, decoded);
     }
   });
