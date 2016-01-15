@@ -44,10 +44,10 @@ function getKeys(keyobject, gendpoints) {
       var gkeys = JSON.parse(response.body);
         for (var i=0;i<gkeys.keys.length;i++) {
           if (keyobject[gkeys.keys[i].kid]) {
-            // console.log("Key id [" + gkeys.keys[i].kid + "] already exists");
+            console.log("Key id [" + gkeys.keys[i].kid + "] already exists");
           } else {
             keyobject[gkeys.keys[i].kid] = gkeys.keys[i];
-            // console.log("Key ["+gkeys.keys[i].kid+"] Added");
+            console.log("Key ["+gkeys.keys[i].kid+"] Added");
           }
         }
         resolve(keyobject);
@@ -60,6 +60,7 @@ function getKeys(keyobject, gendpoints) {
 }
 
 exports.updateKeyList = function updateKeyList (options, endpoints, keyobject) {
+  console.log("updateKeyList Called Time = " + new Date());
   getLinks(options, endpoints).then(function(gep) {
      getKeys(keyobject, gep).then(function(gka) {
         kayarray = gka;
@@ -108,14 +109,17 @@ exports.verifyToken = function verifyToken(token, goptions, gendpoints, gKeyArra
       if (decoded.aud != goptions.GOOGLE_CLIENT_ID) {
         err = 'Audience mismatch - id token authentication failure';
         verifyResult(err, null);
+        return;
       }
       if ((decoded.iss != 'accounts.google.com') && (decoded.iss != 'https://accounts.google.com')) {
         err = 'ISS mismatch - id token authentication failure';
         verifyResult(err, null);
+        return
       }
-      if (Date.now() < decoded.exp) {
+      if ((decoded.exp * 1000) < Date.now()) {
         err = 'id token expired - authentication failure';
         verifyResult(err, null);
+        return
       }
       verifyResult(null, decoded);
     }
