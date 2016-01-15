@@ -102,7 +102,10 @@ app.get('/favicon.ico', function(req, res) {
 	res.send('200OK');
 });
 
-verify.updateKeyList(gOptions, googleEndpoints, keyArray);
+// verify.updateKeyList(gOptions, googleEndpoints, keyArray);
+
+//Periodically - every hour - update keys, delete keys older than x days
+setInterval(verify.updateKeyList(gOptions, googleEndpoints, keyArray), 3600000);
 
 app.use(function verifyUser(req, res, next) {
 
