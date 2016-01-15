@@ -114,12 +114,12 @@ exports.verifyToken = function verifyToken(token, goptions, gendpoints, gKeyArra
       if ((decoded.iss != 'accounts.google.com') && (decoded.iss != 'https://accounts.google.com')) {
         err = 'ISS mismatch - id token authentication failure';
         verifyResult(err, null);
-        return
+        return;
       }
       if ((decoded.exp * 1000) < Date.now()) {
         err = 'id token expired - authentication failure';
         verifyResult(err, null);
-        return
+        return;
       }
       verifyResult(null, decoded);
     }
