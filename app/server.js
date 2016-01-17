@@ -3,6 +3,7 @@ var app 			= express();
 var morgan       	= require('morgan');
 var util 			= require('util');
 
+app.disable('x-powered-by');
 app.use(morgan('dev'));
 
 app.use('/', express.static(__dirname));
