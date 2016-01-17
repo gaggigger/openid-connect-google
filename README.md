@@ -1,7 +1,24 @@
 #openid-connect-google
+##Problem
+Application consists of an Angular JS based frontend and a Node JS based backend. The backend service exposes a REST API. The backend service runs in the cloud on a public IP address.
+How to protect the backend API service without the burden of protecting user passwords?
 
-End to end example in node js illustrating the implementation of the OpenId Connect protocol to secure an API server. Includes code to authorize and authenticate the user using Google login. Once the user has been authenticated the sample application shows how the id_token returned can be used to communicate with the API server. The example shows how the id_token is validated by the API server using Google API. The sample code uses Node JS Angular JS and the Module Passport JS to implement a secure authentication mechanism for an API server.
+##Solution
+Use the openid connect protocol to protect the API server. The only piece of user information the API server stores is the email address of valid users of the API.
 
+Create three NodeJS servers:
+
+1. A server to implement open-id connect protocol - Login Service.
+2. A server to deliver the Angular JS application to the browser - Webapp.
+3. API server - API service
+
+Users connect to the Login server first. Users are redirected to the login server if the user tries to access the API server before the user is authenticated. 
+Once authentication is complete the user is redirected to the Webapp. 
+The redirect request passes the id_token (JSON Web Token - JWT) as a query parameter. This launches the Angular JS application in the browser. 
+The Angular JS application uses the JWT to makes API calls to the API service. 
+The JWT contains the users email address, the API service verifies that the email address is in its database of allowed users before permitting access to the API. 
+
+We use Google as the OpenId-Connect provider. As we use the Passport JS Module to implement Openid-Connect, the Opendid-Connect (Facebook, Twitter etc.) provider can be changed with a small additional effort.
 
 #Configuration procedure
 This document assumes that you have a Google Compute Engine account, have created a project and have a virtual machine to use. The VM must have a public IP you can reach.
