@@ -48,6 +48,7 @@ function getKeys(keyobject, gendpoints) {
           } else {
             keyobject[gkeys.keys[i].kid] = gkeys.keys[i];
             console.log("Key ["+gkeys.keys[i].kid+"] Added");
+            console.log("Key Value = " + util.inspect(gkeys.keys[i]));
           }
         }
         resolve(keyobject);
@@ -96,7 +97,8 @@ exports.verifyToken = function verifyToken(token, goptions, gendpoints, gKeyArra
   // console.log("PEM file : " + pem);
 
   var jwtOptions = { "algorithm" : "RS256",
-                     "audience" : goptions.GOOGLE_CLIENT_ID
+                     "audience" : goptions.GOOGLE_CLIENT_ID,
+                     "ignoreExpiration" : false
                    };
 
   jwt.verify(token, pem, jwtOptions, function(err, decoded) {
@@ -104,20 +106,11 @@ exports.verifyToken = function verifyToken(token, goptions, gendpoints, gKeyArra
       console.log("Error decoding : " + err);
       verifyResult(err, null);
     } else {
-      // console.log("Decode successful : ", decoded);
-      // Verify the Audience, iss and expiry time before invoking the callback
-      if (decoded.aud != goptions.GOOGLE_CLIENT_ID) {
-        err = 'Audience mismatch - id token authentication failure';
-        verifyResult(err, null);
-        return;
-      }
+      // Audience expiry check done by jsonwebtoken module verify
+      // Expiration checked by jsonwebtoken module verify
+      // jsonwebtoken verify only checks for one possible value of iss
       if ((decoded.iss != 'accounts.google.com') && (decoded.iss != 'https://accounts.google.com')) {
         err = 'ISS mismatch - id token authentication failure';
-        verifyResult(err, null);
-        return;
-      }
-      if ((decoded.exp * 1000) < Date.now()) {
-        err = 'id token expired - authentication failure';
         verifyResult(err, null);
         return;
       }

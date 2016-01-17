@@ -95,6 +95,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.disable('x-powered-by');
+
 app.use(morgan('dev'));
 
 // Silence the favicon request sent by all browsers automatically
@@ -102,13 +104,16 @@ app.get('/favicon.ico', function(req, res) {
 	res.send('200OK');
 });
 
-// verify.updateKeyList(gOptions, googleEndpoints, keyArray);
+// Call once at startup
+verify.updateKeyList(gOptions, googleEndpoints, keyArray);
 
 //Periodically - every hour - update keys, delete keys older than x days
-setInterval(verify.updateKeyList(gOptions, googleEndpoints, keyArray), 3600000);
+function queryGoogleKeys() {
+  verify.updateKeyList(gOptions, googleEndpoints, keyArray)
+}
+setInterval(queryGoogleKeys, 3600000);
 
 app.use(function verifyUser(req, res, next) {
-
   req.userInfoFromToken = {};
   if (req.query.Token) {
     verify.verifyToken(req.query.Token, gOptions, googleEndpoints, keyArray, function (err, decoded) {

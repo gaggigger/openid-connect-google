@@ -43,6 +43,8 @@ passport.use(new GoogleStrategy({
 
 var app = express();
 
+app.disable('x-powered-by');
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
